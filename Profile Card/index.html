@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card</title>
+
+    <style>
+        .card {
+            width: 300px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            padding: 20px;
+            margin: 50px auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .banner {
+            height: 100px;
+            background: linear-gradient(to right, blue, purple);
+            border-radius: 10px;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            background-color: yellow;
+            border: 4px solid white;
+            border-radius: 50%;
+            margin: -45px auto 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        li {
+            background-color: #e8e8ff;
+            color: blue;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            padding: 10px 25px;
+            border: 2px solid blue;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.following {
+            background-color: white;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="banner"></div>
+
+        <div class="avatar">AK</div>
+
+        <h2>Arjun Kumar</h2>
+
+        <p>Web Developer</p>
+
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Git</li>
+        </ul>
+
+        <p class="followers">120 Followers</p>
+
+        <button>Follow</button>
+
+    </div>
+
+    <script>
+        const followBtn = document.querySelector("button");
+        const followers = document.querySelector(".followers");
+
+        followBtn.addEventListener("click", function() {
+
+            if (followBtn.innerText === "Follow") {
+                followBtn.innerText = "Following";
+                followBtn.classList.add("following");
+                followers.innerText = "121 Followers";
+            } 
+            else {
+                followBtn.innerText = "Follow";
+                followBtn.classList.remove("following");
+                followers.innerText = "120 Followers";
+            }
+
+        });
+    </script>
+
+</body>
+</html>
