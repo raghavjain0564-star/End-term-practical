@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Profile Card</title>
+<style>
+:root {
+  --bg: #e8eef3;
+  --card: #ffffff;
+  --text: #14212b;
+  --muted: #5d6c78;
+  --accent: #1f6f8b;
+  --accent-text: #ffffff;
+  --ring: #99c9d9;
+  --banner-a: #1f6f8b;
+  --banner-b: #6fb7a8;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1a21; --card: #17262f; --text: #eaf1f5; --muted: #93a6b3;
+    --accent: #6fb7a8; --accent-text: #0f1a21; --ring: #2f5766;
+    --banner-a: #1b4d62; --banner-b: #3f8577; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1a21; --card: #17262f; --text: #eaf1f5; --muted: #93a6b3;
+  --accent: #6fb7a8; --accent-text: #0f1a21; --ring: #2f5766;
+  --banner-a: #1b4d62; --banner-b: #3f8577; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.card {
+  width: 100%; max-width: 340px;
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(20, 33, 43, .15);
+}
+.banner { height: 96px; background: linear-gradient(120deg, var(--banner-a), var(--banner-b)); }
+.dp {
+  width: 104px; height: 104px; border-radius: 50%;
+  border: 4px solid var(--card);
+  box-shadow: 0 0 0 2px var(--ring);
+  margin: -52px auto 0; display: block; background: var(--card);
+}
+.body { padding: 14px 24px 28px; }
+h1 { margin: 8px 0 2px; font-size: 1.4rem; }
+.handle { margin: 0; color: var(--muted); font-size: .95rem; }
+.bio { margin: 12px 0 0; color: var(--muted); font-size: .92rem; line-height: 1.5; }
+.followers { margin: 20px 0 18px; }
+.count { display: block; font-size: 2rem; font-weight: 700; line-height: 1; }
+.label { color: var(--muted); font-size: .9rem; }
+.btn {
+  font: inherit; font-weight: 700; cursor: pointer;
+  width: 100%; padding: 12px 20px; border-radius: 999px;
+  border: 2px solid var(--accent);
+  background: var(--accent); color: var(--accent-text);
+  transition: background .2s, color .2s, transform .1s;
+}
+.btn:active { transform: scale(.97); }
+.btn:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+.btn.following { background: transparent; color: var(--accent); }
+.btn.following:hover { border-color: #c0392b; color: #c0392b; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="banner"></div>
+  <svg class="dp" viewBox="0 0 100 100" role="img" aria-label="Profile picture of Aanya Sharma">
+    <circle cx="50" cy="50" r="50" fill="#cfe6df"/>
+    <circle cx="50" cy="40" r="17" fill="#1f6f8b"/>
+    <path d="M16 92c4-22 20-30 34-30s30 8 34 30z" fill="#1f6f8b"/>
+  </svg>
+  <div class="body">
+    <h1>Aanya Sharma</h1>
+    <p class="handle">@aanya.designs</p>
+    <p class="bio">Product designer in Jaipur. I sketch interfaces and share what I learn.</p>
+    <div class="followers">
+      <span class="count" id="count" aria-live="polite">12,480</span>
+      <span class="label">Followers</span>
+    </div>
+    <button class="btn" id="followBtn" aria-pressed="false">Follow</button>
+  </div>
+</main>
+<script>
+(function () {
+  var count = 12480;
+  var following = false;
+  var btn = document.getElementById("followBtn");
+  var countEl = document.getElementById("count");
+
+  function render() {
+    countEl.textContent = count.toLocaleString("en-US");
+    btn.textContent = following ? "Following" : "Follow";
+    btn.classList.toggle("following", following);
+    btn.setAttribute("aria-pressed", String(following));
+  }
+
+  btn.addEventListener("click", function () {
+    following = !following;
+    count += following ? 1 : -1;
+    render();
+  });
+  btn.addEventListener("mouseenter", function () {
+    if (following) btn.textContent = "Unfollow";
+  });
+  btn.addEventListener("mouseleave", function () {
+    if (following) btn.textContent = "Following";
+  });
+  render();
+})();
+</script>
+</body>
+</html>
